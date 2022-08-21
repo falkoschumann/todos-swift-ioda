@@ -20,6 +20,7 @@
 		CCBF6C7028B136F6009F6032 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CCBF6C7328B136F6009F6032 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		CCBF6C7528B136F6009F6032 /* Todos.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Todos.entitlements; sourceTree = "<group>"; };
+		CCD9CAA528B14EE7003E2AD0 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,6 +37,7 @@
 		CCBF6C6028B136F3009F6032 = {
 			isa = PBXGroup;
 			children = (
+				CCD9CAA528B14EE7003E2AD0 /* README.md */,
 				CCBF6C6B28B136F3009F6032 /* Todos */,
 				CCBF6C6A28B136F3009F6032 /* Products */,
 			);
