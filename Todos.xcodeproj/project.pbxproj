@@ -20,7 +20,10 @@
 		CCBF6C7028B136F6009F6032 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CCBF6C7328B136F6009F6032 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		CCBF6C7528B136F6009F6032 /* Todos.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Todos.entitlements; sourceTree = "<group>"; };
+		CCCF288728B39A5E007398F6 /* .swift-version */ = {isa = PBXFileReference; lastKnownFileType = text; path = ".swift-version"; sourceTree = "<group>"; };
+		CCCF288828B39C89007398F6 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		CCD9CAA528B14EE7003E2AD0 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		CCD9CAA728B392F7003E2AD0 /* TodosPackage */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = TodosPackage; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,6 +40,9 @@
 		CCBF6C6028B136F3009F6032 = {
 			isa = PBXGroup;
 			children = (
+				CCCF288828B39C89007398F6 /* .swiftlint.yml */,
+				CCCF288728B39A5E007398F6 /* .swift-version */,
+				CCD9CAA628B392F7003E2AD0 /* Packages */,
 				CCD9CAA528B14EE7003E2AD0 /* README.md */,
 				CCBF6C6B28B136F3009F6032 /* Todos */,
 				CCBF6C6A28B136F3009F6032 /* Products */,
@@ -71,6 +77,14 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		CCD9CAA628B392F7003E2AD0 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				CCD9CAA728B392F7003E2AD0 /* TodosPackage */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -78,6 +92,8 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = CCBF6C7828B136F6009F6032 /* Build configuration list for PBXNativeTarget "Todos" */;
 			buildPhases = (
+				CC96163528B3951F00D00E9B /* ShellScript */,
+				CCCF288628B39952007398F6 /* ShellScript */,
 				CCBF6C6528B136F3009F6032 /* Sources */,
 				CCBF6C6628B136F3009F6032 /* Frameworks */,
 				CCBF6C6728B136F3009F6032 /* Resources */,
@@ -135,6 +151,43 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		CC96163528B3951F00D00E9B /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Adds support for Apple Silicon brew directory\nexport PATH=\"$PATH:/opt/homebrew/bin\"\n\nif which swiftformat >/dev/null; then\n  swiftformat --lint .\nelse\n  echo \"warning: SwiftFormat not installed, download from https://github.com/nicklockwood/SwiftFormat\"\nfi\n\n";
+		};
+		CCCF288628B39952007398F6 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		CCBF6C6528B136F3009F6032 /* Sources */ = {
