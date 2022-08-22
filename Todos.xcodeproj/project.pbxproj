@@ -8,15 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		CCBF6C6D28B136F3009F6032 /* TodosApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCBF6C6C28B136F3009F6032 /* TodosApp.swift */; };
-		CCBF6C6F28B136F3009F6032 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCBF6C6E28B136F3009F6032 /* ContentView.swift */; };
 		CCBF6C7128B136F6009F6032 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CCBF6C7028B136F6009F6032 /* Assets.xcassets */; };
 		CCBF6C7428B136F6009F6032 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CCBF6C7328B136F6009F6032 /* Preview Assets.xcassets */; };
+		CCCF288B28B3CA36007398F6 /* TodosBackend in Frameworks */ = {isa = PBXBuildFile; productRef = CCCF288A28B3CA36007398F6 /* TodosBackend */; };
+		CCCF288D28B3CA36007398F6 /* TodosContract in Frameworks */ = {isa = PBXBuildFile; productRef = CCCF288C28B3CA36007398F6 /* TodosContract */; };
+		CCCF288F28B3CA36007398F6 /* TodosFrontend in Frameworks */ = {isa = PBXBuildFile; productRef = CCCF288E28B3CA36007398F6 /* TodosFrontend */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		CCBF6C6928B136F3009F6032 /* Todos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Todos.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCBF6C6C28B136F3009F6032 /* TodosApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodosApp.swift; sourceTree = "<group>"; };
-		CCBF6C6E28B136F3009F6032 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		CCBF6C7028B136F6009F6032 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CCBF6C7328B136F6009F6032 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		CCBF6C7528B136F6009F6032 /* Todos.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Todos.entitlements; sourceTree = "<group>"; };
@@ -31,6 +32,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CCCF288F28B3CA36007398F6 /* TodosFrontend in Frameworks */,
+				CCCF288D28B3CA36007398F6 /* TodosContract in Frameworks */,
+				CCCF288B28B3CA36007398F6 /* TodosBackend in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -46,6 +50,7 @@
 				CCD9CAA528B14EE7003E2AD0 /* README.md */,
 				CCBF6C6B28B136F3009F6032 /* Todos */,
 				CCBF6C6A28B136F3009F6032 /* Products */,
+				CCCF288928B3CA36007398F6 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -61,7 +66,6 @@
 			isa = PBXGroup;
 			children = (
 				CCBF6C6C28B136F3009F6032 /* TodosApp.swift */,
-				CCBF6C6E28B136F3009F6032 /* ContentView.swift */,
 				CCBF6C7028B136F6009F6032 /* Assets.xcassets */,
 				CCBF6C7528B136F6009F6032 /* Todos.entitlements */,
 				CCBF6C7228B136F6009F6032 /* Preview Content */,
@@ -75,6 +79,13 @@
 				CCBF6C7328B136F6009F6032 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		CCCF288928B3CA36007398F6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		CCD9CAA628B392F7003E2AD0 /* Packages */ = {
@@ -103,6 +114,11 @@
 			dependencies = (
 			);
 			name = Todos;
+			packageProductDependencies = (
+				CCCF288A28B3CA36007398F6 /* TodosBackend */,
+				CCCF288C28B3CA36007398F6 /* TodosContract */,
+				CCCF288E28B3CA36007398F6 /* TodosFrontend */,
+			);
 			productName = Todos;
 			productReference = CCBF6C6928B136F3009F6032 /* Todos.app */;
 			productType = "com.apple.product-type.application";
@@ -194,7 +210,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CCBF6C6F28B136F3009F6032 /* ContentView.swift in Sources */,
 				CCBF6C6D28B136F3009F6032 /* TodosApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -391,6 +406,21 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		CCCF288A28B3CA36007398F6 /* TodosBackend */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = TodosBackend;
+		};
+		CCCF288C28B3CA36007398F6 /* TodosContract */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = TodosContract;
+		};
+		CCCF288E28B3CA36007398F6 /* TodosFrontend */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = TodosFrontend;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = CCBF6C6128B136F3009F6032 /* Project object */;
 }

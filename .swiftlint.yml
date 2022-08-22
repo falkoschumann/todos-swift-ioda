@@ -1,2 +1,7 @@
+identifier_name:
+  excluded:
+    - e
+    - i
+    - id
 trailing_comma:
   mandatory_comma: true

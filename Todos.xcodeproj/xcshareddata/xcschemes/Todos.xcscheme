@@ -20,6 +20,48 @@
                ReferencedContainer = "container:Todos.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "TodosBackend"
+               BuildableName = "TodosBackend"
+               BlueprintName = "TodosBackend"
+               ReferencedContainer = "container:TodosPackage">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "TodosContract"
+               BuildableName = "TodosContract"
+               BlueprintName = "TodosContract"
+               ReferencedContainer = "container:TodosPackage">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "TodosFrontend"
+               BuildableName = "TodosFrontend"
+               BlueprintName = "TodosFrontend"
+               ReferencedContainer = "container:TodosPackage">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -32,9 +74,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "TodosPackageTests"
-               BuildableName = "TodosPackageTests"
-               BlueprintName = "TodosPackageTests"
+               BlueprintIdentifier = "TodosBackendTests"
+               BuildableName = "TodosBackendTests"
+               BlueprintName = "TodosBackendTests"
                ReferencedContainer = "container:TodosPackage">
             </BuildableReference>
          </TestableReference>
