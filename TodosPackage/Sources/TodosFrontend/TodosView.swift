@@ -3,8 +3,11 @@ import SwiftUI
 import TodosContract
 
 public struct TodosView: View {
-    private var todos: [Todo]
+    var onToggleTodo: (ToggleTodoCommand) -> Void
+
     @State var filter: Filter
+
+    private var todos: [Todo]
 
     var shownTodos: [Todo] {
         switch filter {
@@ -23,15 +26,21 @@ public struct TodosView: View {
 
     public var body: some View {
         VStack {
-            List(shownTodos, id: \.id) { todo in
+            List(shownTodos) { todo in
                 HStack {
-                    Toggle("", isOn: Binding.constant(todo.completed)).toggleStyle(.checkbox)
-                    Text(todo.title)
+                    Button(action: { handleToggle(todo.id) }, label: {
+                        if todo.completed {
+                            Image(systemName: "checkmark.circle").imageScale(.large)
+                        } else {
+                            Image(systemName: "circle").imageScale(.large)
+                        }
+                    }).buttonStyle(.plain)
+                    Text(todo.title).strikethrough(todo.completed)
                 }
                 Divider()
             }
             HStack {
-                Text(itemsLeft)
+                Text(itemsLeft).frame(minWidth: 100, alignment: .leading)
                 Spacer()
                 Picker("", selection: $filter) {
                     Text("All").tag(Filter.all)
@@ -43,9 +52,18 @@ public struct TodosView: View {
         }
     }
 
-    public init(todos: [Todo] = [], filter: Filter = .all) {
+    public init(
+        todos: [Todo] = [],
+        filter: Filter = .all,
+        onToggleTodo: @escaping (ToggleTodoCommand) -> Void = { _ in }
+    ) {
         self.todos = todos
         self.filter = filter
+        self.onToggleTodo = onToggleTodo
+    }
+
+    private func handleToggle(_ id: Int) {
+        onToggleTodo(ToggleTodoCommand(id: id))
     }
 }
 
@@ -74,7 +92,7 @@ struct TodosView_Previews: PreviewProvider {
             TodosView(todos: [
                 Todo(id: 1, title: "Taste JavaScript", completed: false),
                 Todo(id: 2, title: "Buy Unicorn", completed: false),
-            ]).previewDisplayName("All active")
+            ]).previewDisplayName("Multiple active todos")
         }
     }
 }

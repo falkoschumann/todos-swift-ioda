@@ -1,6 +1,6 @@
 import Foundation
 
-public struct Todo: Equatable {
+public struct Todo: Identifiable, Equatable {
     public let id: Int
     public let title: String
     public let completed: Bool
