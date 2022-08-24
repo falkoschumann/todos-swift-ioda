@@ -4,6 +4,7 @@ import TodosContract
 
 public struct TodosView: View {
     var onClearCompleted: (ClearCompletedCommand) -> Void
+    var onDestroyTodo: (DestroyTodoCommand) -> Void
     var onToggleTodo: (ToggleTodoCommand) -> Void
 
     @State var filter: Filter
@@ -33,17 +34,7 @@ public struct TodosView: View {
     public var body: some View {
         VStack {
             List(shownTodos) { todo in
-                HStack {
-                    Button(action: { handleToggle(todo.id) }, label: {
-                        if todo.completed {
-                            Image(systemName: "checkmark.circle").imageScale(.large)
-                        } else {
-                            Image(systemName: "circle").imageScale(.large)
-                        }
-                    }).buttonStyle(.plain)
-                    Text(todo.title).strikethrough(todo.completed)
-                }
-                Divider()
+                TodoView(todo: todo, onDestroy: handleDestroy, onToggle: handleToggle)
             }
             HStack {
                 Text(itemsLeft).frame(minWidth: 120, alignment: .leading)
@@ -55,13 +46,11 @@ public struct TodosView: View {
                 }.pickerStyle(.segmented).frame(width: 270)
                 Spacer()
                 if isExistsCompleted {
-                    Button(action: handleClear) {
-                        Text("Clear completed")
-                    }.frame(minWidth: 120, alignment: .trailing)
+                    Button(action: handleClear) { Text("Clear completed") }
+                        .frame(minWidth: 120, alignment: .trailing)
                 } else {
-                    Button(action: handleClear) {
-                        Text("Clear completed")
-                    }.frame(minWidth: 120, alignment: .trailing).hidden()
+                    Button(action: handleClear) { Text("Clear completed") }
+                        .frame(minWidth: 120, alignment: .trailing).hidden()
                 }
             }.padding(EdgeInsets(top: 0, leading: 6, bottom: 6, trailing: 6))
         }
@@ -71,16 +60,22 @@ public struct TodosView: View {
         todos: [Todo] = [],
         filter: Filter = .all,
         onClearCompleted: @escaping (ClearCompletedCommand) -> Void = { _ in },
+        onDestroyTodo: @escaping (DestroyTodoCommand) -> Void = { _ in },
         onToggleTodo: @escaping (ToggleTodoCommand) -> Void = { _ in }
     ) {
         self.todos = todos
         self.filter = filter
         self.onClearCompleted = onClearCompleted
+        self.onDestroyTodo = onDestroyTodo
         self.onToggleTodo = onToggleTodo
     }
 
     private func handleClear() {
         onClearCompleted(ClearCompletedCommand())
+    }
+
+    private func handleDestroy(_ id: Int) {
+        onDestroyTodo(DestroyTodoCommand(id: id))
     }
 
     private func handleToggle(_ id: Int) {
