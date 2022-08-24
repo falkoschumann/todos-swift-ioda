@@ -3,6 +3,7 @@ import SwiftUI
 import TodosContract
 
 public struct TodosView: View {
+    var onClearCompleted: (ClearCompletedCommand) -> Void
     var onToggleTodo: (ToggleTodoCommand) -> Void
 
     @State var filter: Filter
@@ -24,6 +25,11 @@ public struct TodosView: View {
         return "\(activeCount) \("item".pluralize(count: activeCount)) left"
     }
 
+    var isExistsCompleted: Bool {
+        let completedCount = todos.filter { e in e.completed }.count
+        return completedCount > 0
+    }
+
     public var body: some View {
         VStack {
             List(shownTodos) { todo in
@@ -40,7 +46,7 @@ public struct TodosView: View {
                 Divider()
             }
             HStack {
-                Text(itemsLeft).frame(minWidth: 100, alignment: .leading)
+                Text(itemsLeft).frame(minWidth: 120, alignment: .leading)
                 Spacer()
                 Picker("", selection: $filter) {
                     Text("All").tag(Filter.all)
@@ -48,6 +54,15 @@ public struct TodosView: View {
                     Text("Completed").tag(Filter.completed)
                 }.pickerStyle(.segmented).frame(width: 270)
                 Spacer()
+                if isExistsCompleted {
+                    Button(action: handleClear) {
+                        Text("Clear completed")
+                    }.frame(minWidth: 120, alignment: .trailing)
+                } else {
+                    Button(action: handleClear) {
+                        Text("Clear completed")
+                    }.frame(minWidth: 120, alignment: .trailing).hidden()
+                }
             }.padding(EdgeInsets(top: 0, leading: 6, bottom: 6, trailing: 6))
         }
     }
@@ -55,11 +70,17 @@ public struct TodosView: View {
     public init(
         todos: [Todo] = [],
         filter: Filter = .all,
+        onClearCompleted: @escaping (ClearCompletedCommand) -> Void = { _ in },
         onToggleTodo: @escaping (ToggleTodoCommand) -> Void = { _ in }
     ) {
         self.todos = todos
         self.filter = filter
+        self.onClearCompleted = onClearCompleted
         self.onToggleTodo = onToggleTodo
+    }
+
+    private func handleClear() {
+        onClearCompleted(ClearCompletedCommand())
     }
 
     private func handleToggle(_ id: Int) {

@@ -10,10 +10,11 @@ struct TodosApp: App {
 
     var body: some Scene {
         WindowGroup {
-            TodosView(todos: todos, onToggleTodo: handleToggleTodo)
+            TodosView(todos: todos, onClearCompleted: handleClearCompleted, onToggleTodo: handleToggleTodo)
         }
     }
 
+    private let clearCompleted: (ClearCompletedCommand) -> CommandStatus
     private let toggleTodo: (ToggleTodoCommand) -> CommandStatus
     private let selectTodos: (SelectTodosQuery) -> SelectTodosQueryResult
 
@@ -25,12 +26,19 @@ struct TodosApp: App {
             Todo(id: 1, title: "Taste JavaScript", completed: true),
             Todo(id: 2, title: "Buy Unicorn", completed: false),
         ])
+        clearCompleted = createClearCompletedCommandHandler(todosRepository: todosRepository)
         toggleTodo = createToggleTodoCommandHandler(todosRepository: todosRepository)
         selectTodos = createSelectTodosQueryHandler(todosRepository: todosRepository)
 
         //
         // Run
         //
+        let result = selectTodos(SelectTodosQuery())
+        todos = result.todos
+    }
+
+    private func handleClearCompleted(_ command: ClearCompletedCommand) {
+        _ = clearCompleted(command)
         let result = selectTodos(SelectTodosQuery())
         todos = result.todos
     }
