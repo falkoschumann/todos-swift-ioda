@@ -5,11 +5,17 @@ import TodosContract
 public struct TodosView: View {
     var onClearCompleted: (ClearCompletedCommand) -> Void
     var onDestroyTodo: (DestroyTodoCommand) -> Void
+    var onToggleAll: (ToggleAllCommand) -> Void
     var onToggleTodo: (ToggleTodoCommand) -> Void
 
     @State var filter: Filter
 
     private var todos: [Todo]
+
+    var allCompleted: Bool {
+        let completedCount = todos.filter { e in e.completed }.count
+        return completedCount == todos.count
+    }
 
     var shownTodos: [Todo] {
         switch filter {
@@ -33,6 +39,16 @@ public struct TodosView: View {
 
     public var body: some View {
         VStack {
+            HStack {
+                Button(action: handleToggleAll) {
+                    if allCompleted {
+                        Image(systemName: "checkmark.circle").imageScale(.large)
+                    } else {
+                        Image(systemName: "circle").imageScale(.large)
+                    }
+                }.buttonStyle(.plain)
+                Spacer()
+            }.padding(EdgeInsets(top: 10.0, leading: 15.0, bottom: 5.0, trailing: 15.0))
             List(shownTodos) { todo in
                 TodoView(todo: todo, onDestroy: handleDestroy, onToggle: handleToggle)
             }
@@ -61,12 +77,14 @@ public struct TodosView: View {
         filter: Filter = .all,
         onClearCompleted: @escaping (ClearCompletedCommand) -> Void = { _ in },
         onDestroyTodo: @escaping (DestroyTodoCommand) -> Void = { _ in },
+        onToggleAll: @escaping (ToggleAllCommand) -> Void = { _ in },
         onToggleTodo: @escaping (ToggleTodoCommand) -> Void = { _ in }
     ) {
         self.todos = todos
         self.filter = filter
         self.onClearCompleted = onClearCompleted
         self.onDestroyTodo = onDestroyTodo
+        self.onToggleAll = onToggleAll
         self.onToggleTodo = onToggleTodo
     }
 
@@ -76,6 +94,10 @@ public struct TodosView: View {
 
     private func handleDestroy(_ id: Int) {
         onDestroyTodo(DestroyTodoCommand(id: id))
+    }
+
+    private func handleToggleAll() {
+        onToggleAll(ToggleAllCommand(checked: !allCompleted))
     }
 
     private func handleToggle(_ id: Int) {
@@ -106,9 +128,13 @@ struct TodosView_Previews: PreviewProvider {
                 filter: .completed
             ).previewDisplayName("Completed todos")
             TodosView(todos: [
+                Todo(id: 1, title: "Taste JavaScript", completed: true),
+                Todo(id: 2, title: "Buy Unicorn", completed: true),
+            ]).previewDisplayName("All todos completed")
+            TodosView(todos: [
                 Todo(id: 1, title: "Taste JavaScript", completed: false),
                 Todo(id: 2, title: "Buy Unicorn", completed: false),
-            ]).previewDisplayName("Multiple active todos")
+            ]).previewDisplayName("All todos active")
         }
     }
 }
