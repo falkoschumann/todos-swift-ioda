@@ -12,6 +12,7 @@ struct TodosApp: App {
         WindowGroup {
             TodosView(
                 todos: todos,
+                onAddTodo: handleAddTodo,
                 onClearCompleted: handleClearCompleted,
                 onDestroyTodo: handleDestroyTodo,
                 onToggleAll: handleToggleAll,
@@ -20,6 +21,7 @@ struct TodosApp: App {
         }
     }
 
+    private let addTodo: (AddTodoCommand) -> CommandStatus
     private let clearCompleted: (ClearCompletedCommand) -> CommandStatus
     private let destroyTodo: (DestroyTodoCommand) -> CommandStatus
     private let toggleAll: (ToggleAllCommand) -> CommandStatus
@@ -34,6 +36,7 @@ struct TodosApp: App {
             Todo(id: 1, title: "Taste JavaScript", completed: true),
             Todo(id: 2, title: "Buy Unicorn", completed: false),
         ])
+        addTodo = createAddTodoCommandHandler(todosRepository: todosRepository)
         clearCompleted = createClearCompletedCommandHandler(todosRepository: todosRepository)
         destroyTodo = createDestroyTodoCommandHandler(todosRepository: todosRepository)
         toggleAll = createToggleAllCommandHandler(todosRepository: todosRepository)
@@ -43,6 +46,12 @@ struct TodosApp: App {
         //
         // Run
         //
+        let result = selectTodos(SelectTodosQuery())
+        todos = result.todos
+    }
+
+    private func handleAddTodo(_ command: AddTodoCommand) {
+        _ = addTodo(command)
         let result = selectTodos(SelectTodosQuery())
         todos = result.todos
     }

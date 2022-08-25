@@ -4,7 +4,7 @@ import XCTest
 import TodosContract
 
 final class ClearCompletedCommandHandlerTests: XCTestCase {
-    func testremovesCompletedTodos() throws {
+    func testRemovesCompletedTodos() throws {
         let givenTodos = [
             Todo(id: 1, title: "Taste JavaScript", completed: true),
             Todo(id: 2, title: "Buy Unicorn", completed: false),
