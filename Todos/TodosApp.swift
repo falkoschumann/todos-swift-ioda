@@ -6,7 +6,7 @@ import TodosFrontend
 
 @main
 struct TodosApp: App {
-    @State var todos: [Todo]
+    @State private var todos: [Todo]
 
     var body: some Scene {
         WindowGroup {

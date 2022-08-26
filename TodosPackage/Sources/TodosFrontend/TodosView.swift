@@ -3,16 +3,13 @@ import SwiftUI
 import TodosContract
 
 public struct TodosView: View {
-    var onAddTodo: (AddTodoCommand) -> Void
-    var onClearCompleted: (ClearCompletedCommand) -> Void
-    var onDestroyTodo: (DestroyTodoCommand) -> Void
-    var onToggleAll: (ToggleAllCommand) -> Void
-    var onToggleTodo: (ToggleTodoCommand) -> Void
-
-    private var todos: [Todo]
+    private let todos: [Todo]
     @State private var filter: Filter
-
-    @State private var newTitle = ""
+    private let onAddTodo: (AddTodoCommand) -> Void
+    private let onClearCompleted: (ClearCompletedCommand) -> Void
+    private let onDestroyTodo: (DestroyTodoCommand) -> Void
+    private let onToggleAll: (ToggleAllCommand) -> Void
+    private let onToggleTodo: (ToggleTodoCommand) -> Void
 
     private var existsTodo: Bool {
         !todos.isEmpty
@@ -33,51 +30,33 @@ public struct TodosView: View {
         }
     }
 
-    private var itemsLeft: String {
-        let activeCount = todos.filter { e in !e.completed }.count
-        return "\(activeCount) \("item".pluralize(count: activeCount)) left"
+    private var activeCount: Int {
+        todos.filter { e in !e.completed }.count
     }
 
-    private var isExistsCompleted: Bool {
+    private var existsCompleted: Bool {
         let completedCount = todos.filter { e in e.completed }.count
         return completedCount > 0
     }
 
     public var body: some View {
         VStack {
-            HStack {
-                if existsTodo {
-                    Button(action: handleToggleAll) {
-                        if allCompleted {
-                            Image(systemName: "checkmark.circle").imageScale(.large)
-                        } else {
-                            Image(systemName: "circle").imageScale(.large)
-                        }
-                    }.buttonStyle(.plain)
-                }
-                TextField("What needs to be done?", text: $newTitle).onSubmit { handleNewTodo() }
-            }.padding(EdgeInsets(top: 10.0, leading: 15.0, bottom: 5.0, trailing: 15.0))
+            HeaderView(
+                existsTodo: existsTodo,
+                allCompleted: allCompleted,
+                onAddTodo: handleAddTodo,
+                onToggleAll: handleToggleAll
+            )
             if existsTodo {
                 List(shownTodos) { todo in
                     TodoView(todo: todo, onDestroy: handleDestroy, onToggle: handleToggle)
                 }
-                HStack {
-                    Text(itemsLeft).frame(minWidth: 120, alignment: .leading)
-                    Spacer()
-                    Picker("", selection: $filter) {
-                        Text("All").tag(Filter.all)
-                        Text("Active").tag(Filter.active)
-                        Text("Completed").tag(Filter.completed)
-                    }.pickerStyle(.segmented).frame(width: 270)
-                    Spacer()
-                    if isExistsCompleted {
-                        Button(action: handleClear) { Text("Clear completed") }
-                            .frame(minWidth: 120, alignment: .trailing)
-                    } else {
-                        Button(action: handleClear) { Text("Clear completed") }
-                            .frame(minWidth: 120, alignment: .trailing).hidden()
-                    }
-                }.padding(EdgeInsets(top: 0, leading: 6, bottom: 6, trailing: 6))
+                FooterView(
+                    activeCount: activeCount,
+                    filter: $filter,
+                    existsCompleted: existsCompleted,
+                    onClear: handleClear
+                )
             } else {
                 Spacer()
             }
@@ -102,14 +81,12 @@ public struct TodosView: View {
         self.onToggleTodo = onToggleTodo
     }
 
-    private func handleNewTodo() {
-        let title = newTitle.trimmingCharacters(in: .whitespaces)
-        if title.isEmpty {
-            return
-        }
+    private func handleToggleAll(checked: Bool) {
+        onToggleAll(ToggleAllCommand(checked: checked))
+    }
 
-        onAddTodo(AddTodoCommand(title: newTitle))
-        newTitle = ""
+    private func handleAddTodo(title: String) {
+        onAddTodo(AddTodoCommand(title: title))
     }
 
     private func handleClear() {
@@ -118,10 +95,6 @@ public struct TodosView: View {
 
     private func handleDestroy(_ id: Int) {
         onDestroyTodo(DestroyTodoCommand(id: id))
-    }
-
-    private func handleToggleAll() {
-        onToggleAll(ToggleAllCommand(checked: !allCompleted))
     }
 
     private func handleToggle(_ id: Int) {
