@@ -15,6 +15,7 @@ struct TodosApp: App {
                 onAddTodo: handleAddTodo,
                 onClearCompleted: handleClearCompleted,
                 onDestroyTodo: handleDestroyTodo,
+                onSaveTodo: handleSaveTodo,
                 onToggleAll: handleToggleAll,
                 onToggleTodo: handleToggleTodo
             )
@@ -24,6 +25,7 @@ struct TodosApp: App {
     private let addTodo: (AddTodoCommand) -> CommandStatus
     private let clearCompleted: (ClearCompletedCommand) -> CommandStatus
     private let destroyTodo: (DestroyTodoCommand) -> CommandStatus
+    private let saveTodo: (SaveTodoCommand) -> CommandStatus
     private let toggleAll: (ToggleAllCommand) -> CommandStatus
     private let toggleTodo: (ToggleTodoCommand) -> CommandStatus
     private let selectTodos: (SelectTodosQuery) -> SelectTodosQueryResult
@@ -39,6 +41,7 @@ struct TodosApp: App {
         addTodo = createAddTodoCommandHandler(todosRepository: todosRepository)
         clearCompleted = createClearCompletedCommandHandler(todosRepository: todosRepository)
         destroyTodo = createDestroyTodoCommandHandler(todosRepository: todosRepository)
+        saveTodo = createSaveTodoCommandHandler(todosRepository: todosRepository)
         toggleAll = createToggleAllCommandHandler(todosRepository: todosRepository)
         toggleTodo = createToggleTodoCommandHandler(todosRepository: todosRepository)
         selectTodos = createSelectTodosQueryHandler(todosRepository: todosRepository)
@@ -64,6 +67,12 @@ struct TodosApp: App {
 
     private func handleDestroyTodo(_ command: DestroyTodoCommand) {
         _ = destroyTodo(command)
+        let result = selectTodos(SelectTodosQuery())
+        todos = result.todos
+    }
+
+    private func handleSaveTodo(_ command: SaveTodoCommand) {
+        _ = saveTodo(command)
         let result = selectTodos(SelectTodosQuery())
         todos = result.todos
     }

@@ -8,6 +8,7 @@ public struct TodosView: View {
     private let onAddTodo: (AddTodoCommand) -> Void
     private let onClearCompleted: (ClearCompletedCommand) -> Void
     private let onDestroyTodo: (DestroyTodoCommand) -> Void
+    private let onSaveTodo: (SaveTodoCommand) -> Void
     private let onToggleAll: (ToggleAllCommand) -> Void
     private let onToggleTodo: (ToggleTodoCommand) -> Void
 
@@ -49,7 +50,7 @@ public struct TodosView: View {
             )
             if existsTodo {
                 List(shownTodos) { todo in
-                    TodoView(todo: todo, onDestroy: handleDestroy, onToggle: handleToggle)
+                    TodoView(todo: todo, onDestroy: handleDestroy, onSave: handleSave, onToggle: handleToggle)
                 }
                 FooterView(
                     activeCount: activeCount,
@@ -69,6 +70,7 @@ public struct TodosView: View {
         onAddTodo: @escaping (AddTodoCommand) -> Void = { _ in },
         onClearCompleted: @escaping (ClearCompletedCommand) -> Void = { _ in },
         onDestroyTodo: @escaping (DestroyTodoCommand) -> Void = { _ in },
+        onSaveTodo: @escaping (SaveTodoCommand) -> Void = { _ in },
         onToggleAll: @escaping (ToggleAllCommand) -> Void = { _ in },
         onToggleTodo: @escaping (ToggleTodoCommand) -> Void = { _ in }
     ) {
@@ -77,6 +79,7 @@ public struct TodosView: View {
         self.onAddTodo = onAddTodo
         self.onClearCompleted = onClearCompleted
         self.onDestroyTodo = onDestroyTodo
+        self.onSaveTodo = onSaveTodo
         self.onToggleAll = onToggleAll
         self.onToggleTodo = onToggleTodo
     }
@@ -95,6 +98,10 @@ public struct TodosView: View {
 
     private func handleDestroy(_ id: Int) {
         onDestroyTodo(DestroyTodoCommand(id: id))
+    }
+
+    private func handleSave(_ id: Int, _ title: String) {
+        onSaveTodo(SaveTodoCommand(id: id, title: title))
     }
 
     private func handleToggle(_ id: Int) {

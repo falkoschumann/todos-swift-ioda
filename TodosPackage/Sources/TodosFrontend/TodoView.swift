@@ -1,3 +1,4 @@
+import Combine
 import SwiftUI
 
 import TodosContract
@@ -5,26 +6,55 @@ import TodosContract
 struct TodoView: View {
     var todo: Todo
     var onDestroy: (Int) -> Void = { _ in }
+    var onSave: (Int, String) -> Void = { _, _ in }
     var onToggle: (Int) -> Void = { _ in }
 
     @State private var isMouseHover = false
+    @State private var isEditing = false
+    @State private var newTitle = ""
+    @FocusState private var newTitleIsFocused
 
     var body: some View {
         VStack {
-            HStack {
-                Button(action: handleToggle) {
-                    if todo.completed {
-                        Image(systemName: "checkmark.circle").imageScale(.large)
-                    } else {
+            if isEditing {
+                HStack {
+                    Button(action: handleToggle) {
                         Image(systemName: "circle").imageScale(.large)
-                    }
-                }.buttonStyle(.plain)
-                Text(todo.title).strikethrough(todo.completed)
-                Spacer()
-                if isMouseHover {
-                    Button(action: handleDestroy) { Image(systemName: "xmark") }.buttonStyle(.plain)
+                    }.buttonStyle(.plain).hidden()
+                    // FIXME: second todo view triggers message on console:
+                    //     Binding<String> action tried to update multiple times per frame.
+                    TextField("", text: $newTitle)
+                        .focused($newTitleIsFocused)
+                        .onSubmit {
+                            onSave(todo.id, newTitle)
+                            isEditing = false
+                        }
+                        .onExitCommand(perform: {
+                            newTitle = todo.title
+                            isEditing = false
+                        })
                 }
-            }.onHover { over in isMouseHover = over }
+            } else {
+                HStack {
+                    Button(action: handleToggle) {
+                        if todo.completed {
+                            Image(systemName: "checkmark.circle").imageScale(.large)
+                        } else {
+                            Image(systemName: "circle").imageScale(.large)
+                        }
+                    }.buttonStyle(.plain)
+                    Text(todo.title).strikethrough(todo.completed).frame(maxWidth: .infinity, alignment: .leading)
+                        .background()
+                        .onTapGesture(count: 2, perform: {
+                            newTitle = todo.title
+                            isEditing = true
+                            newTitleIsFocused = true
+                        })
+                    if isMouseHover {
+                        Button(action: handleDestroy) { Image(systemName: "xmark") }.buttonStyle(.plain)
+                    }
+                }.onHover { over in isMouseHover = over }
+            }
             Divider()
         }
     }
