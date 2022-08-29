@@ -8,9 +8,19 @@ public func createToggleAllCommandHandler(todosRepository: TodosRepository) -> (
     }
 
     return { command in
-        var todos = todosRepository.load()
-        todos = toggleAll(todos, command.checked)
-        todosRepository.store(todos: todos)
-        return .success
+        do {
+            var todos = try todosRepository.load()
+            todos = toggleAll(todos, command.checked)
+            try todosRepository.store(todos: todos)
+            return .success
+        } catch {
+            var state: String
+            if command.checked {
+                state = "completed"
+            } else {
+                state = "active"
+            }
+            return .failure(errorMessage: "Could not set all todos as \(state): \(error.localizedDescription)")
+        }
     }
 }

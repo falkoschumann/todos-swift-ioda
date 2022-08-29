@@ -2,7 +2,7 @@ import Foundation
 
 import TodosContract
 
-public class MemoryTodoRepository: TodosRepository {
+public class MemoryTodosRepository: TodosRepository {
     private var todos: [Todo]
 
     public init(_ todos: [Todo]) {

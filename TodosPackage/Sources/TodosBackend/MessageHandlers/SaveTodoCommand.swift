@@ -22,9 +22,16 @@ public func createSaveTodoCommandHandler(todosRepository: TodosRepository) -> (S
     }
 
     return { command in
-        var todos = todosRepository.load()
-        todos = saveTodo(todos, command.id, command.title)
-        todosRepository.store(todos: todos)
-        return .success
+        do {
+            var todos = try todosRepository.load()
+            todos = saveTodo(todos, command.id, command.title)
+            try todosRepository.store(todos: todos)
+            return .success
+        } catch {
+            return .failure(
+                errorMessage: "Todo \"\(command.title)\" (\(command.id)) could not be saved: " +
+                    error.localizedDescription
+            )
+        }
     }
 }

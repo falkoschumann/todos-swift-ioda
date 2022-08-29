@@ -8,9 +8,15 @@ public func createDestroyTodoCommandHandler(todosRepository: TodosRepository) ->
     }
 
     return { command in
-        var todos = todosRepository.load()
-        todos = destroyTodo(todos, command.id)
-        todosRepository.store(todos: todos)
-        return .success
+        do {
+            var todos = try todosRepository.load()
+            todos = destroyTodo(todos, command.id)
+            try todosRepository.store(todos: todos)
+            return .success
+        } catch {
+            return .failure(
+                errorMessage: "Todo \"\(command.id)\" could not be destroyed: \(error.localizedDescription)"
+            )
+        }
     }
 }

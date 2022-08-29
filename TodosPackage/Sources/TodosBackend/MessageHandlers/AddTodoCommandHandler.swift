@@ -13,15 +13,21 @@ public func createAddTodoCommandHandler(todosRepository: TodosRepository) -> (Ad
     }
 
     return { command in
-        let title = command.title.trimmingCharacters(in: .whitespaces)
-        if title.isEmpty {
-            return .success
-        }
+        do {
+            let title = command.title.trimmingCharacters(in: .whitespaces)
+            if title.isEmpty {
+                return .success
+            }
 
-        var todos = todosRepository.load()
-        let id = getNextId(todos)
-        todos = addTodo(todos, id, title)
-        todosRepository.store(todos: todos)
-        return .success
+            var todos = try todosRepository.load()
+            let id = getNextId(todos)
+            todos = addTodo(todos, id, title)
+            try todosRepository.store(todos: todos)
+            return .success
+        } catch {
+            return .failure(
+                errorMessage: "Todo \"\(command.title)\" could not be added: \(error.localizedDescription)"
+            )
+        }
     }
 }

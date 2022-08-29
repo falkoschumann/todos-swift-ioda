@@ -10,9 +10,13 @@ public func createClearCompletedCommandHandler(
     }
 
     return { _ in
-        var todos = todosRepository.load()
-        todos = clearCompleted(todos)
-        todosRepository.store(todos: todos)
-        return .success
+        do {
+            var todos = try todosRepository.load()
+            todos = clearCompleted(todos)
+            try todosRepository.store(todos: todos)
+            return .success
+        } catch {
+            return .failure(errorMessage: "Could not clear completed todos: \(error.localizedDescription)")
+        }
     }
 }

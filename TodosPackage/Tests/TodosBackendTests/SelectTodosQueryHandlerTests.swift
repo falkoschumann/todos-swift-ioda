@@ -9,7 +9,7 @@ final class SelectTodosQueryHandlerTests: XCTestCase {
             Todo(id: 1, title: "Taste JavaScript", completed: true),
             Todo(id: 2, title: "Buy Unicorn", completed: false),
         ]
-        let todosRepository = MemoryTodoRepository(givenTodos)
+        let todosRepository = MemoryTodosRepository(givenTodos)
         let selectTodos = createSelectTodosQueryHandler(todosRepository: todosRepository)
 
         let whenQuery = SelectTodosQuery()
@@ -19,6 +19,17 @@ final class SelectTodosQueryHandlerTests: XCTestCase {
             Todo(id: 1, title: "Taste JavaScript", completed: true),
             Todo(id: 2, title: "Buy Unicorn", completed: false),
         ])
+        XCTAssertEqual(result, thenResult)
+    }
+
+    func testFails() throws {
+        let todosRepository = FailureTodosRepository()
+        let selectTodos = createSelectTodosQueryHandler(todosRepository: todosRepository)
+
+        let whenQuery = SelectTodosQuery()
+        let result = selectTodos(whenQuery)
+
+        let thenResult = SelectTodosQueryResult(todos: [])
         XCTAssertEqual(result, thenResult)
     }
 }

@@ -34,10 +34,14 @@ struct TodosApp: App {
         //
         // Build
         //
-        let todosRepository = MemoryTodoRepository([
-            Todo(id: 1, title: "Taste JavaScript", completed: true),
-            Todo(id: 2, title: "Buy Unicorn", completed: false),
-        ])
+        /*
+         let todosRepository = MemoryTodosRepository([
+             Todo(id: 1, title: "Taste JavaScript", completed: true),
+             Todo(id: 2, title: "Buy Unicorn", completed: false),
+         ])
+         */
+        // file: ~/Library/Containers/de.muspellheim.Todos/Data/todos.json
+        let todosRepository = JSONTodosRepository(file: "todos.json")
         addTodo = createAddTodoCommandHandler(todosRepository: todosRepository)
         clearCompleted = createClearCompletedCommandHandler(todosRepository: todosRepository)
         destroyTodo = createDestroyTodoCommandHandler(todosRepository: todosRepository)

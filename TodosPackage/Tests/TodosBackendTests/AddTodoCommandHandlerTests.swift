@@ -51,12 +51,25 @@ final class AddTodoCommandHandlerTests: XCTestCase {
         thenStatus: CommandStatus,
         thenTodos: [Todo]
     ) throws {
-        let todosRepository = MemoryTodoRepository(givenTodos)
+        let todosRepository = MemoryTodosRepository(givenTodos)
         let addTodo = createAddTodoCommandHandler(todosRepository: todosRepository)
 
         let status = addTodo(whenCommand)
 
         XCTAssertEqual(status, thenStatus)
         XCTAssertEqual(todosRepository.load(), thenTodos)
+    }
+
+    func testFails() throws {
+        let todosRepository = FailureTodosRepository()
+        let addTodo = createAddTodoCommandHandler(todosRepository: todosRepository)
+
+        let whenCommand = AddTodoCommand(title: "Taste JavaScript")
+        let status = addTodo(whenCommand)
+
+        let thenStatus = CommandStatus.failure(
+            errorMessage: "Todo \"Taste JavaScript\" could not be added: something is strange"
+        )
+        XCTAssertEqual(status, thenStatus)
     }
 }

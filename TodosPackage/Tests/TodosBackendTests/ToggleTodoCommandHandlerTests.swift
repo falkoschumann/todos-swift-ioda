@@ -40,12 +40,25 @@ final class ToggleTodoCommandHandlerTests: XCTestCase {
         thenStatus: CommandStatus,
         thenTodos: [Todo]
     ) throws {
-        let todosRepository = MemoryTodoRepository(givenTodos)
+        let todosRepository = MemoryTodosRepository(givenTodos)
         let toggleTodo = createToggleTodoCommandHandler(todosRepository: todosRepository)
 
         let status = toggleTodo(whenCommand)
 
         XCTAssertEqual(status, thenStatus)
         XCTAssertEqual(todosRepository.load(), thenTodos)
+    }
+
+    func testFails() throws {
+        let todosRepository = FailureTodosRepository()
+        let toggleTodo = createToggleTodoCommandHandler(todosRepository: todosRepository)
+
+        let whenCommand = ToggleTodoCommand(id: 1)
+        let status = toggleTodo(whenCommand)
+
+        let thenStatus = CommandStatus.failure(
+            errorMessage: "Todo \"1\" could not be toggled: something is strange"
+        )
+        XCTAssertEqual(status, thenStatus)
     }
 }

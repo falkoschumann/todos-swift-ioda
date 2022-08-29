@@ -40,12 +40,25 @@ final class ToggleAllCommandHandlerTests: XCTestCase {
         thenStatus: CommandStatus,
         thenTodos: [Todo]
     ) throws {
-        let todosRepository = MemoryTodoRepository(givenTodos)
+        let todosRepository = MemoryTodosRepository(givenTodos)
         let toggleAll = createToggleAllCommandHandler(todosRepository: todosRepository)
 
         let status = toggleAll(whenCommand)
 
         XCTAssertEqual(status, thenStatus)
         XCTAssertEqual(todosRepository.load(), thenTodos)
+    }
+
+    func testFails() throws {
+        let todosRepository = FailureTodosRepository()
+        let toggleAll = createToggleAllCommandHandler(todosRepository: todosRepository)
+
+        let whenCommand = ToggleAllCommand(checked: true)
+        let status = toggleAll(whenCommand)
+
+        let thenStatus = CommandStatus.failure(
+            errorMessage: "Could not set all todos as completed: something is strange"
+        )
+        XCTAssertEqual(status, thenStatus)
     }
 }

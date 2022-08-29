@@ -21,7 +21,7 @@ struct TodoView: View {
                     Button(action: handleToggle) {
                         Image(systemName: "circle").imageScale(.large)
                     }.buttonStyle(.plain).hidden()
-                    // FIXME: second todo view triggers message on console:
+                    // FIXME: todo view triggers message on console:
                     //     Binding<String> action tried to update multiple times per frame.
                     TextField("", text: $newTitle)
                         .focused($newTitleIsFocused)
