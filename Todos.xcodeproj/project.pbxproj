@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CC70DBA328CDE85800561696 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC70DBA228CDE85800561696 /* AppDelegate.swift */; };
+		CC70DBA528CDE85800561696 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC70DBA428CDE85800561696 /* ViewController.swift */; };
+		CC70DBA728CDE85900561696 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC70DBA628CDE85900561696 /* Assets.xcassets */; };
+		CC70DBAA28CDE85900561696 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC70DBA828CDE85900561696 /* Main.storyboard */; };
 		CCBF6C6D28B136F3009F6032 /* TodosApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCBF6C6C28B136F3009F6032 /* TodosApp.swift */; };
 		CCBF6C7128B136F6009F6032 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CCBF6C7028B136F6009F6032 /* Assets.xcassets */; };
 		CCBF6C7428B136F6009F6032 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CCBF6C7328B136F6009F6032 /* Preview Assets.xcassets */; };
@@ -16,6 +20,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CC70DBA028CDE85800561696 /* TodosCocoa.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TodosCocoa.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CC70DBA228CDE85800561696 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		CC70DBA428CDE85800561696 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		CC70DBA628CDE85900561696 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		CC70DBA928CDE85900561696 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		CC70DBAB28CDE85900561696 /* TodosCocoa.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TodosCocoa.entitlements; sourceTree = "<group>"; };
 		CCBF6C6928B136F3009F6032 /* Todos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Todos.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCBF6C6C28B136F3009F6032 /* TodosApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodosApp.swift; sourceTree = "<group>"; };
 		CCBF6C7028B136F6009F6032 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -28,6 +38,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		CC70DB9D28CDE85800561696 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CCBF6C6628B136F3009F6032 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -41,6 +58,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CC70DBA128CDE85800561696 /* TodosCocoa */ = {
+			isa = PBXGroup;
+			children = (
+				CC70DBA228CDE85800561696 /* AppDelegate.swift */,
+				CC70DBA428CDE85800561696 /* ViewController.swift */,
+				CC70DBA628CDE85900561696 /* Assets.xcassets */,
+				CC70DBA828CDE85900561696 /* Main.storyboard */,
+				CC70DBAB28CDE85900561696 /* TodosCocoa.entitlements */,
+			);
+			path = TodosCocoa;
+			sourceTree = "<group>";
+		};
 		CCBF6C6028B136F3009F6032 = {
 			isa = PBXGroup;
 			children = (
@@ -49,6 +78,7 @@
 				CCD9CAA628B392F7003E2AD0 /* Packages */,
 				CCD9CAA528B14EE7003E2AD0 /* README.md */,
 				CCBF6C6B28B136F3009F6032 /* Todos */,
+				CC70DBA128CDE85800561696 /* TodosCocoa */,
 				CCBF6C6A28B136F3009F6032 /* Products */,
 				CCCF288928B3CA36007398F6 /* Frameworks */,
 			);
@@ -58,6 +88,7 @@
 			isa = PBXGroup;
 			children = (
 				CCBF6C6928B136F3009F6032 /* Todos.app */,
+				CC70DBA028CDE85800561696 /* TodosCocoa.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -99,6 +130,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		CC70DB9F28CDE85800561696 /* TodosCocoa */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CC70DBAE28CDE85900561696 /* Build configuration list for PBXNativeTarget "TodosCocoa" */;
+			buildPhases = (
+				CC70DB9C28CDE85800561696 /* Sources */,
+				CC70DB9D28CDE85800561696 /* Frameworks */,
+				CC70DB9E28CDE85800561696 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TodosCocoa;
+			productName = TodosCocoa;
+			productReference = CC70DBA028CDE85800561696 /* TodosCocoa.app */;
+			productType = "com.apple.product-type.application";
+		};
 		CCBF6C6828B136F3009F6032 /* Todos */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = CCBF6C7828B136F6009F6032 /* Build configuration list for PBXNativeTarget "Todos" */;
@@ -133,6 +181,9 @@
 				LastSwiftUpdateCheck = 1340;
 				LastUpgradeCheck = 1340;
 				TargetAttributes = {
+					CC70DB9F28CDE85800561696 = {
+						CreatedOnToolsVersion = 13.4.1;
+					};
 					CCBF6C6828B136F3009F6032 = {
 						CreatedOnToolsVersion = 13.4.1;
 					};
@@ -152,11 +203,21 @@
 			projectRoot = "";
 			targets = (
 				CCBF6C6828B136F3009F6032 /* Todos */,
+				CC70DB9F28CDE85800561696 /* TodosCocoa */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		CC70DB9E28CDE85800561696 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC70DBA728CDE85900561696 /* Assets.xcassets in Resources */,
+				CC70DBAA28CDE85900561696 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CCBF6C6728B136F3009F6032 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -206,6 +267,15 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		CC70DB9C28CDE85800561696 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC70DBA528CDE85800561696 /* ViewController.swift in Sources */,
+				CC70DBA328CDE85800561696 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CCBF6C6528B136F3009F6032 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -216,7 +286,72 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXVariantGroup section */
+		CC70DBA828CDE85900561696 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CC70DBA928CDE85900561696 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
+		CC70DBAC28CDE85900561696 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = TodosCocoa/TodosCocoa.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = QC6EN37P56;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = de.muspellheim.TodosCocoa;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		CC70DBAD28CDE85900561696 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = TodosCocoa/TodosCocoa.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = QC6EN37P56;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = de.muspellheim.TodosCocoa;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 		CCBF6C7628B136F6009F6032 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -387,6 +522,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		CC70DBAE28CDE85900561696 /* Build configuration list for PBXNativeTarget "TodosCocoa" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CC70DBAC28CDE85900561696 /* Debug */,
+				CC70DBAD28CDE85900561696 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		CCBF6C6428B136F3009F6032 /* Build configuration list for PBXProject "Todos" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
